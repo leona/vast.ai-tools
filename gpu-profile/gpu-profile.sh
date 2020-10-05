@@ -50,17 +50,17 @@ fi
 
 if ! [ -n "$_fan_speed" ]; then
   _fan_speed=$FAN_SPEED
-  echo "Using existing power limit"
+  echo "Using existing fan speed"
 fi
 
 if ! [ -n "$_clock_offset" ]; then
   _clock_offset=$CLOCK_OFFSET
-  echo "Using existing power limit"
+  echo "Using existing clock offset"
 fi
 
 if ! [ -n "$_mem_clock_offset" ]; then
   _mem_clock_offset=$MEM_CLOCK_OFFSET
-  echo "Using existing power limit"
+  echo "Using existing mem clock offset"
 fi
 
 rm -f $config_path

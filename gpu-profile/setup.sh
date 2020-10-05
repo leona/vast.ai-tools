@@ -44,6 +44,4 @@ if ! grep -q "$cron_job" "$cron_path"; then
   (crontab -l; echo "$cron_job") | crontab -
 fi
 
-echo "Creating default profile"
-gpu-profile default
-echo "Finished setup. Add new config with 'gpu-profile default/image_name'"
+echo "Finished setup. To start the daemon add the default config with 'gpu-profile default'"
