@@ -12,7 +12,7 @@ To uninstall it run
 wget -O - https://raw.githubusercontent.com/leona/vast.ai-tools/master/gpu-profile/setup.sh | sudo bash -s uninstall
 ```
 
-Set the default config (this gets prompted during install but can be run again)
+Set the default config
 ```bash
 gpu-profile default
 ```
