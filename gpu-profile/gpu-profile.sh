@@ -71,7 +71,11 @@ echo "CLOCK_OFFSET=$_clock_offset" >> $config_path
 echo "MEM_CLOCK_OFFSET=$_mem_clock_offset" >> $config_path
 echo "Config written to $config_path"
 
-kill "$(ps aux | grep 'gpu-profile-daemon' | awk '{print $2}')"
+ps aux | grep 'gpu-profile-daemon' | awk '{print $2}' | while read daemon_id;
+do
+  kill $daemon_id
+done
+
 gpu-profile-daemon > /var/log/gpu-profile.log 2>&1 &
 echo "gpu-profile-daemon restarted"
 echo "Finished creating config for $PARAM. Check logs at /var/log/gpu-profile.log"

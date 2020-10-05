@@ -38,7 +38,6 @@ chmod +x $daemon_path
 chmod +x $config_maker_path
 
 # Setup cronjob on boot
-echo "Creating cronjob"
 if ! grep -q "$cron_job" "$cron_path"; then
   echo "Cronjob doesn't exist. Creating."
   (crontab -l; echo "$cron_job") | crontab -
