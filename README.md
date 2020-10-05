@@ -6,13 +6,13 @@ This repository will be updated with scripts and other assets used for managing 
 
 Lets you create profiles for power limit, fan speed and clocks. Have a default one for renters and container specific ones for your jobs.
 
-[Link to readme](./gpu-profile/README.md)
+[Link to read more](./gpu-profile)
 
 ## Benchmarking
 
 Useful commands for benchmarking
 
-[Link to readme](./benchmark/README.md)
+[Link to read more](./benchmark)
 
 ## Dockerfile.miner
 
