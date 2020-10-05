@@ -32,8 +32,8 @@ nvidia-xconfig -a --cool-bits=31 --allow-empty-initial-configuration --enable-al
 apt install -y jq
 
 # Download scripts
-wget https://raw.githubusercontent.com/leona/vast.ai-tools/master/gpu-profile/gpu-profile-daemon.sh -P /usr/local/bin
-wget https://raw.githubusercontent.com/leona/vast.ai-tools/master/gpu-profile/setup.sh -P /usr/local/bin
+wget https://raw.githubusercontent.com/leona/vast.ai-tools/master/gpu-profile/gpu-profile-daemon.sh -O $daemon_path
+wget https://raw.githubusercontent.com/leona/vast.ai-tools/master/gpu-profile/gpu-profile.sh -O $config_maker_path
 chmod +x $daemon_path
 chmod +x $config_maker_path
 
@@ -45,5 +45,5 @@ if ! grep -q "$cron_job" "$cron_path"; then
 fi
 
 echo "Creating default profile"
-/bin/bash /usr/local/bin/gpu-profile default
+gpu-profile default
 echo "Finished setup. Add new config with 'gpu-profile default/image_name'"
