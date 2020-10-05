@@ -20,7 +20,11 @@ if [ "$PARAM" = "uninstall" ]; then
   rm $config_maker_path
   echo "Removed bins"
 
-  kill "$(ps aux | grep 'gpu-profile-daemon' | awk '{print $2}')"
+  ps aux | grep 'gpu-profile-daemon' | awk '{print $2}' | while read daemon_id;
+  do
+    kill $daemon_id
+  done
+  
   echo "Uninstalled. You might need to set the GPU clocks back, or just reboot."
   exit
 fi
