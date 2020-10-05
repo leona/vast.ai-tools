@@ -32,12 +32,13 @@ nvidia-xconfig -a --cool-bits=31 --allow-empty-initial-configuration --enable-al
 apt install -y jq
 
 # Download scripts
-wget hhttps://raw.githubusercontent.com/leona/vast.ai-tools/master/gpu-profile/gpu-profile-daemon.sh -P /usr/local/bin
+wget https://raw.githubusercontent.com/leona/vast.ai-tools/master/gpu-profile/gpu-profile-daemon.sh -P /usr/local/bin
 wget https://raw.githubusercontent.com/leona/vast.ai-tools/master/gpu-profile/setup.sh -P /usr/local/bin
 chmod +x $daemon_path
 chmod +x $config_maker_path
 
 # Setup cronjob on boot
+echo "Creating cronjob"
 if ! grep -q "$cron_job" "$cron_path"; then
   echo "Cronjob doesn't exist. Creating."
   (crontab -l; echo "$cron_job") | crontab -

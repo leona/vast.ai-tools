@@ -4,12 +4,12 @@ This script monitors docker container start events and applies GPU settings base
 
 To install it run
 ```bash
-wget https://raw.githubusercontent.com/leona/vast.ai-tools/master/gpu-profile/setup.sh -O - | bash
+wget https://raw.githubusercontent.com/leona/vast.ai-tools/master/gpu-profile/setup.sh -O - | sudo bash
 ```
 
 To uninstall it run
 ```bash
-wget https://raw.githubusercontent.com/leona/vast.ai-tools/master/gpu-profile/setup.sh -O - | bash -s uninstall
+wget https://raw.githubusercontent.com/leona/vast.ai-tools/master/gpu-profile/setup.sh -O - | sudo bash -s uninstall
 ```
 
 Set the default config (this gets prompted during install but can be run again)
