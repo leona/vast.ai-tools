@@ -18,8 +18,6 @@ else
   config_path="$config_root/$PARAM.conf"
 fi
 
-mkdir -p "$(dirname $config_path)" && touch "$config_path"
-
 if test -f "$config_path"; then
   source $config_path
   echo "Existing values below"
@@ -30,6 +28,8 @@ if test -f "$config_path"; then
   echo "MEM_CLOCK_OFFSET=$MEM_CLOCK_OFFSET"
   echo "To skip and use the saved config press enter for the following"
 fi
+
+mkdir -p "$(dirname $config_path)" && touch "$config_path"
 
 read -p "Enter clocks support (3 for 1000 series, 4 for 2000 series cards): " _clock_support
 read -p "Enter the power limit in watts (e.g. 250): " _power_limit
@@ -72,5 +72,6 @@ echo "MEM_CLOCK_OFFSET=$_mem_clock_offset" >> $config_path
 echo "Config written to $config_path"
 
 kill "$(ps aux | grep 'gpu-profile-daemon' | awk '{print $2}')"
-gpu-profile-daemon > /var/log/gpu-profile.log 2>&1 && echo "gpu-profile-daemon restarted"
+gpu-profile-daemon > /var/log/gpu-profile.log 2>&1 &
+echo "gpu-profile-daemon restarted"
 echo "Finished creating config for $PARAM. Check logs at /var/log/gpu-profile.log"
