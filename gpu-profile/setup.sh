@@ -32,8 +32,8 @@ nvidia-xconfig -a --cool-bits=31 --allow-empty-initial-configuration --enable-al
 apt install -y jq
 
 # Download scripts
-wget https://github.com/leona/vast.ai-tools/blob/master/gpu-profile/gpu-profile-daemon.sh -P /usr/local/bin
-wget https://github.com/leona/vast.ai-tools/blob/master/gpu-profile/gpu-profile.sh -P /usr/local/bin
+wget hhttps://raw.githubusercontent.com/leona/vast.ai-tools/master/gpu-profile/gpu-profile-daemon.sh -P /usr/local/bin
+wget https://raw.githubusercontent.com/leona/vast.ai-tools/master/gpu-profile/setup.sh -P /usr/local/bin
 chmod +x $daemon_path
 chmod +x $config_maker_path
 
