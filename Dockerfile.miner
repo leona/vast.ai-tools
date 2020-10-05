@@ -61,7 +61,7 @@ RUN \
 RUN \
   apt install -y nano libpci-dev && \
   chmod +x phoenixminer/PhoenixMiner
-  
+
 # Env setup
 ENV GPU_FORCE_64BIT_PTR=0
 ENV GPU_MAX_HEAP_SIZE=100
