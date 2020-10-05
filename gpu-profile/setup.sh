@@ -44,5 +44,5 @@ if ! grep -q "$cron_job" "$cron_path"; then
 fi
 
 echo "Creating default profile"
-gpu-profile
+/bin/bash /usr/local/bin/gpu-profile default
 echo "Finished setup. Add new config with 'gpu-profile default/image_name'"
