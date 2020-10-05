@@ -1,0 +1,70 @@
+FROM nvidia/cuda:11.0-devel-ubuntu16.04
+
+MAINTAINER Leon
+
+WORKDIR /home
+
+# Package and dependency setup
+RUN apt-get update \
+    && apt-get -y install software-properties-common \
+    && add-apt-repository -y ppa:ethereum/ethereum -y \
+    && apt-get update \
+    && apt-get install -y git \
+     cmake \
+     wget \
+     libcryptopp-dev \
+     libleveldb-dev \
+     libjsoncpp-dev \
+     libjsonrpccpp-dev \
+     libboost-all-dev \
+     libgmp-dev \
+     libreadline-dev \
+     libcurl4-gnutls-dev \
+     ocl-icd-libopencl1 \
+     opencl-headers \
+     mesa-common-dev \
+     libmicrohttpd-dev \
+     build-essential \
+     unzip
+
+RUN \
+  wget https://github.com/NebuTech/NBMiner/releases/download/v31.1/NBMiner_31.1_Linux.tgz && \
+  tar -zxvf NBMiner_31.1_Linux.tgz && \
+  rm NBMiner_31.1_Linux.tgz && \
+  mv NBMiner_Linux nbminer
+
+RUN \
+  wget https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda-9-linux-x86_64.tar.gz && \
+  tar -zxvf ethminer-0.18.0-cuda-9-linux-x86_64.tar.gz && \
+  rm ethminer-0.18.0-cuda-9-linux-x86_64.tar.gz && \
+  mv bin ethminer
+
+RUN \
+  wget https://github.com/PhoenixMiner-download/PhoenixMiner/releases/download/5.1c/PhoenixMiner_5.1c_Linux.zip && \
+  unzip PhoenixMiner_5.1c_Linux.zip && \
+  rm PhoenixMiner_5.1c_Linux.zip && \
+  mv PhoenixMiner_5.1c_Linux phoenixminer
+
+RUN \
+  wget https://github.com/xmrig/xmrig/releases/download/v6.3.4/xmrig-6.3.4-linux-x64.tar.gz && \
+  tar -zxvf xmrig-6.3.4-linux-x64.tar.gz && \
+  rm xmrig-6.3.4-linux-x64.tar.gz && \
+  mv xmrig-6.3.4 xmrig
+
+RUN \
+  wget https://github.com/Claymore-Dual/Claymore-Dual-Miner/releases/download/15.0/Claymore.s.Dual.Ethereum.AMD+NVIDIA.GPU.Miner.v15.0.-.LINUX.zip && \
+  unzip Claymore.s.Dual.Ethereum.AMD+NVIDIA.GPU.Miner.v15.0.-.LINUX.zip && \
+  rm Claymore.s.Dual.Ethereum.AMD+NVIDIA.GPU.Miner.v15.0.-.LINUX.zip && \
+  mv "Claymore's Dual Ethereum AMD+NVIDIA GPU Miner v15.0 - LINUX" claymore && \
+  chmod +x claymore/ethdcrminer64
+
+RUN \
+  apt install -y nano libpci-dev && \
+  chmod +x phoenixminer/PhoenixMiner
+  
+# Env setup
+ENV GPU_FORCE_64BIT_PTR=0
+ENV GPU_MAX_HEAP_SIZE=100
+ENV GPU_USE_SYNC_OBJECTS=1
+ENV GPU_MAX_ALLOC_PERCENT=100
+ENV GPU_SINGLE_ALLOC_PERCENT=100
