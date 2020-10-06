@@ -13,3 +13,11 @@ sudo nvidia-docker run --rm  --name bench --shm-size=1g --ulimit memlock=-1 --ul
 
 git clone https://github.com/u39kun/deep-learning-benchmark && cd deep-learning-benchmark && python benchmark.py -f tensorflow
 ```
+
+Image
+tensorflow/tensorflow
+```bash
+pip install ai-benchmark
+chmod +x /usr/local/bin/ai-benchmark
+ai-benchmark
+```

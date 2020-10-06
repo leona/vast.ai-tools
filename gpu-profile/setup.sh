@@ -24,13 +24,13 @@ if [ "$PARAM" = "uninstall" ]; then
   do
     kill $daemon_id
   done
-  
+
   echo "Uninstalled. You might need to set the GPU clocks back, or just reboot."
   exit
 fi
 
 # Setup coolbits
-nvidia-xconfig -a --cool-bits=31 --allow-empty-initial-configuration --enable-all-gpus
+nvidia-xconfig -a --cool-bits=28 --separate-x-screens --allow-empty-initial-configuration --enable-all-gpus
 
 # Install dependencies
 apt install -y jq
@@ -47,4 +47,4 @@ if ! grep -q "$cron_job" "$cron_path"; then
   (crontab -l; echo "$cron_job") | crontab -
 fi
 
-echo "Finished setup. To start the daemon add the default config with 'gpu-profile default'"
+echo "Finished setup. To start the daemon, add the default config with 'gpu-profile default'"
