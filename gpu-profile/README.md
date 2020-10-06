@@ -12,12 +12,12 @@ To uninstall it run
 wget -O - https://raw.githubusercontent.com/leona/vast.ai-tools/master/gpu-profile/setup.sh | sudo bash -s uninstall
 ```
 
-Set the default config
+Set the default config. Run the command again to update certain values.
 ```bash
 gpu-profile default
 ```
 
-Create config for a specific docker image. Run the command again to update certain values.
+Create config for a specific docker image
 ```bash
 gpu-profile nxie/aio-miner
 ```
