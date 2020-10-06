@@ -14,6 +14,12 @@ Useful commands for benchmarking
 
 [Link to read more](./benchmark)
 
+## Stats
+
+Aggregated stats on all active machines
+
+[Link to read more](./stats)
+
 ## Dockerfile.miner
 
 This is the dockerfile for the image `nxie/aio-miner`

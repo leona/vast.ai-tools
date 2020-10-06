@@ -1,6 +1,6 @@
 ## Stats
 
-This script aggregates some useful stats about all active machines. Rented counts and average_min_bid are not completely accurate as not enough data from the API is given to calculate this. Estimated profit includes fees and also uses rented_percent as a measure of how much it will be rented.
+This script aggregates some useful stats about all active machines. Rented counts and average_min_bid are not completely accurate as not enough data from the API is given to calculate bids. Estimated profit includes fees and also uses rented_percent as a measure of how much it will be rented.
 
 Install dependencies
 ```bash
