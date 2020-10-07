@@ -1,1 +1,3 @@
 backup
+.env
+__pycache__/
