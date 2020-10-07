@@ -1,3 +1,10 @@
+# Uptime monitor
+
+This is a set of scripts for monitoring machine crashes. Run the client on your vast machine and the server on a remote one. You get notifications on Telegram if no heartbeats are sent within the timeout (default 5 seconds).
+
+I recommend a $2.50 or $3.50 server from Vultr. Server location must be set to New Jersey for the cheap plans. Use my referral link for $100 credit on Vultr.
+https://www.vultr.com/?ref=8581277-6G
+
 ## Setup Telegram bot
 
 1. Search for the contact BotFather in app
