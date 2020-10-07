@@ -8,17 +8,23 @@ Lets you create profiles for power limit, fan speed and clocks. Have a default o
 
 [Link to read more](./gpu-profile)
 
-## Benchmarking
+## Uptime monitor
 
-Useful commands for benchmarking
+Receive messages via Telegram if your machine goes down
 
-[Link to read more](./benchmark)
+[Link to read more](./uptime-monitor)
 
 ## Stats
 
 Aggregated stats on all active machines
 
 [Link to read more](./stats)
+
+## Benchmarking
+
+Useful commands for benchmarking
+
+[Link to read more](./benchmark)
 
 ## Dockerfile.miner
 
