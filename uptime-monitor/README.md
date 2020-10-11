@@ -1,8 +1,8 @@
 # Uptime monitor
 
-This is a set of scripts for monitoring machine crashes. Run the client on your vast machine and the server on a remote one. You get notifications on Telegram if no heartbeats are sent within the timeout (default 5 seconds).
+This is a set of scripts for monitoring machine crashes. Run the client on your vast machine and the server on a remote one. You get notifications on Telegram if no heartbeats are sent within the timeout (default 12 seconds).
 
-I recommend a $2.50 or $3.50 server from Vultr. Server location must be set to New Jersey for the cheap plans. Use my referral link for $100 credit on Vultr.
+I recommend a $2.50 or $3.50 server from Vultr. Server location must be set to New Jersey for the cheap plans. Use my referral link for $100 credit.
 https://www.vultr.com/?ref=8581277-6G
 
 ## Setup Telegram bot
@@ -23,6 +23,8 @@ API_KEY=asecretkey        # SERVER+CLIENT - A random unique key to authenticate 
 SERVER_ADDR=192.168.1.150 # SERVER+CLIENT - Address the client will use to send pings
 SERVER_PORT=5000          # SERVER+CLIENT - Port of the server.
 ```
+
+If you get too many false notifications, try increase the FAIL_TIMEOUT.
 
 ## Server setup
 

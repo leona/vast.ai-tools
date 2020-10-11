@@ -13,7 +13,8 @@ fi
 while [ 1 ]
 do
   request_url="http://$SERVER_ADDR:$SERVER_PORT/ping/$WORKER?api_key=$API_KEY"
-  echo "Pinging $request_url"
-  curl "$request_url"
+  time=`date "+%H:%M:%S-%d/%m/%Y"`
+  echo "$time - Pinging $request_url"
+  curl -m 2 "$request_url"
   sleep $PING_INTERVAL
 done

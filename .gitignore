@@ -1,3 +1,4 @@
 backup
 .env
 __pycache__/
+cookies.json

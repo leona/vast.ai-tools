@@ -58,3 +58,4 @@ Some things I'd like to make when I have time
 - Idle time logger. View least active days etc.
 - Wallet based authentication on gpu-profile
 - Simple mining profitability switcher
+- Bid watcher. Watch for GPUs that reach a certain price per hour and rent them automatically

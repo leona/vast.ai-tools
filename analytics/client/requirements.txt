@@ -1,0 +1,4 @@
+mysql-connector-python===8.0.21
+gputil===1.4.0
+psutil===5.7.2
+requests===2.24.0
