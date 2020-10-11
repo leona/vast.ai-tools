@@ -9,7 +9,6 @@ import time
 from lib.database import Database
 from lib.decorators import set_interval
 
-@set_interval(settings.LOG_ACC_INTERVAL)
 def run():
     vast = Vast(username=settings.VAST_USERNAME, password=settings.VAST_PASSWORD)
     account = vast.get_account()

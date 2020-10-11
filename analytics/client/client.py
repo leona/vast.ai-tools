@@ -1,12 +1,17 @@
 import sys
 import settings
-from crons import account, system#, rotate
 import os
 import time
 
 if __name__ == '__main__':
-    account.run()
-    system.run()
+    param = sys.argv[1]
 
-    while True:
-        time.sleep(10)
+    if param == "account":
+        from crons import account
+        account.run()
+    elif param == "system":
+        from crons import system
+        system.run()
+    else:
+        from crons import account, system
+        print("None found")

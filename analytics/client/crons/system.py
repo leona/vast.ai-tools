@@ -6,7 +6,6 @@ import GPUtil
 from lib.decorators import set_interval
 import settings
 
-@set_interval(settings.LOG_SYS_INTERVAL)
 def run():
     db = Database()
     _time = int(time.time())
@@ -56,7 +55,7 @@ def run():
         db.insert_hardware(_time, {
             "component": "network",
             "hw_id": item,
-            "utilisation": network_usage[item].bytes_sent,
+            "utilisation": network_usage[item].bytes_recv,
             "temperature": None,
             "power_consumption": None,
         })

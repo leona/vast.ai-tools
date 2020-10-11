@@ -2,6 +2,7 @@ docker build --tag nxie/vast-analytics .
 docker push nxie/vast-analytics
 
 docker run \
+  --privileged
   --name vast-analytics -d \
   -e DB_HOST=0.0.0.0 \
   -e DB_USER=root \

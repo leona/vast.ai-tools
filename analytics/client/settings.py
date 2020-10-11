@@ -1,4 +1,5 @@
 import os
+import pathlib
 
 VAST_MACHINE_ID = int(os.getenv("VAST_MACHINE_ID"))
 VAST_USERNAME = os.getenv("VAST_USERNAME")
@@ -9,3 +10,4 @@ DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_NAME = os.getenv("DB_NAME")
 LOG_SYS_INTERVAL = int(os.getenv("LOG_SYS_INTERVAL"))
 LOG_ACC_INTERVAL = int(os.getenv("LOG_ACC_INTERVAL"))
+DIR = str(pathlib.Path(__file__).parent.absolute())

@@ -3,6 +3,15 @@ import settings
 from models import vast as models
 from lib.sys import log
 import json
+import os
+
+api_key_path = settings.DIR + "/api_key"
+api_key = None
+
+if os.path.isfile(api_key_path):
+    api_key_file = open(api_key_path, "r")
+    api_key = api_key_file.read().strip()
+    log("API Key Exists:", api_key)
 
 class Vast:
     username: str
@@ -42,14 +51,16 @@ class Vast:
         self.password = password
         self.session = requests.session()
         self.session.headers.update(self.headers)
-        self._authenticate()
+
+        if api_key == None:
+            self._authenticate()
 
     def _authenticate(self):
-        log("Authenticating user:", self.username)
+        log("Authenticating user:", self.username, "pass:", self.password)
 
         if self.cookies:
             if self.get_user():
-                print("Session exists in cache")
+                log("Session exists in cache")
                 return
             else:
                 log("Sesssion expired")
@@ -64,10 +75,13 @@ class Vast:
             self.user = models.User(**data)
             self.cookies = response.cookies.get_dict()
         else:
-            log("Error authenticating user")
+            log("Error authenticating user", response.status_code)
 
     def _build_url(self, path):
-        return self.endpoint + path
+        if api_key == None:
+            return self.endpoint + path
+        else:
+            return self.endpoint + path + "?api_key=" + api_key
 
     def _get(self, path):
         path = self._build_url(path)
@@ -82,6 +96,7 @@ class Vast:
 
     def _post(self, path, data, method="POST"):
         path = self._build_url(path)
+        data = json.dumps(data)
         log(method, "request to:", path)
 
         if method == "POST":
@@ -102,6 +117,11 @@ class Vast:
 
     def get_account(self):
         data, response = self._get("/users/0/invoices/")
+
+        if data == None:
+            log("Failed to get account", response.status_code)
+            return
+
         return models.Account(**data)
 
     def get_instances(self, machine_id):
