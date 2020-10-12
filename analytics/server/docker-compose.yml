@@ -10,7 +10,7 @@ services:
          - MYSQL_DATABASE=vast
       volumes:
          - db:/var/lib/mysql
-         - ./data/init:/docker-entrypoint-initdb.d/:ro
+         - ./config/db_init:/docker-entrypoint-initdb.d/:ro
     grafana:
       container_name: vast-analytics-dash
       image: grafana/grafana:7.2.1
