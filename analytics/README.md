@@ -4,6 +4,8 @@ This is an analytics dashboard for remotely monitoring system information as wel
 
 NOTE: This is still a WIP. Not everything displayed is working properly and it needs lots of improvements like log rotation etc.
 
+![image](https://raw.githubusercontent.com/leona/vast.ai-tools/master/analytics/screenshot.png)
+
 ## Server setup
 
 The server will host your database and Grafana dashboard.
