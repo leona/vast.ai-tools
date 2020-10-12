@@ -32,3 +32,13 @@ CREATE TABLE `machine` (
   `rentals_bid` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `vast`.`event` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `time` INT NULL,
+  `name` VARCHAR(45) NULL,
+  `val1` VARCHAR(45) NULL,
+  `val2` VARCHAR(45) NULL,
+  `val3` VARCHAR(45) NULL,
+  `val4` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));

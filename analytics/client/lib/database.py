@@ -20,6 +20,12 @@ class Database:
         db.commit()
         cur.close()
 
+    def insert_event(self, data):
+        log("Inserting event:", data)
+        query = "INSERT INTO event (time, name, val1, val2, val3, val4) VALUES(%s, %s, %s, %s, %s, %s)"
+        values = (data['time'], data['name'], data['val1'], data['val2'], data['val3'], data['val4'])
+        self.exec(query, values)
+
     def insert_machine(self, time, data):
         log("Inserting machine:", data)
         query = "INSERT INTO machine (time, machine_id, account_credit, reliability, rentals_stored, rentals_on_demand, rentals_bid) VALUES(%s, %s, %s, %s, %s, %s, %s)"

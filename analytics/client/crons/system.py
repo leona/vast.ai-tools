@@ -35,19 +35,12 @@ def run():
         "power_consumption": None,
     })
 
+    '''
     db.insert_hardware(_time, {
         "component": "disk_usage",
         "hw_id": None,
         "utilisation": disk_usage.read_count,
         "temperature": None,
-        "power_consumption": None,
-    })
-
-    db.insert_hardware(_time, {
-        "component": "cpu",
-        "hw_id": None,
-        "utilisation": psutil.cpu_percent(),
-        "temperature": None,#get_average(temperatures['coretemp']),
         "power_consumption": None,
     })
 
@@ -59,6 +52,15 @@ def run():
             "temperature": None,
             "power_consumption": None,
         })
+    '''
+    
+    db.insert_hardware(_time, {
+        "component": "cpu",
+        "hw_id": None,
+        "utilisation": psutil.cpu_percent(),
+        "temperature": None,#get_average(temperatures['coretemp']),
+        "power_consumption": None,
+    })
 
     for gpu in GPUtil.getGPUs():
         db.insert_hardware(_time, {

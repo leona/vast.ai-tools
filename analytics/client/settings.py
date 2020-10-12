@@ -1,5 +1,14 @@
 import os
 import pathlib
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--action')
+parser.add_argument('--name')
+parser.add_argument('--time')
+parser.add_argument('--values')
+args = parser.parse_args()
+
 
 VAST_MACHINE_ID = int(os.getenv("VAST_MACHINE_ID"))
 VAST_USERNAME = os.getenv("VAST_USERNAME")

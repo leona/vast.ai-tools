@@ -2,16 +2,21 @@ import sys
 import settings
 import os
 import time
+from lib.sys import log
 
 if __name__ == '__main__':
     param = sys.argv[1]
-
-    if param == "account":
+    log("Started with action:", settings.args.action)
+    
+    if settings.args.action == "account":
         from crons import account
         account.run()
-    elif param == "system":
+    elif settings.args.action == "system":
         from crons import system
         system.run()
+    elif settings.args.action == "event":
+        from crons import event
+
+        event.run()
     else:
-        from crons import account, system
         print("None found")

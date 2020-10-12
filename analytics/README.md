@@ -53,6 +53,7 @@ docker run \
   -e LOG_SYS_INTERVAL=30 \
   -e LOG_ACC_INTERVAL=60 \
   --gpus all \
+  --restart always \
   -v /var/lib/docker:/var/lib/docker \
   -v /var/lib/vastai_kaalia/api_key:/var/lib/vastai_analytics/api_key \
   --network host \

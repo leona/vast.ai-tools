@@ -2,6 +2,12 @@
 
 This repository will be updated with scripts and other assets used for managing vast.ai servers.
 
+## Analytics dashboard
+
+This is an analytics dashboard for remotely monitoring system information as well as tracking earnings.
+
+[Link to read more](./analytics)
+
 ## GPU Profile switcher
 
 Lets you create profiles for power limit, fan speed and clocks. Have a default one for renters and container specific ones for your jobs.
