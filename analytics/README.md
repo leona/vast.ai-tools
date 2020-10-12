@@ -18,12 +18,10 @@ sudo apt install -y docker.io docker-compose
 git clone https://github.com/leona/vast.ai-tools.git
 cd vast.ai-tools/analytics/server
 
-docker volume create grafana
-docker volume create db
 # Setup config file with a unique password
 cp .env.example .env
+chmod 755 .env
 nano .env
-
 ```
 
 ### Run
