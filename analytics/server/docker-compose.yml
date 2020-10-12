@@ -9,14 +9,12 @@ services:
          - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
          - MYSQL_DATABASE="vast"
       volumes:
-         - ./data/db:/var/lib/mysql
+         - db:/var/lib/mysql
          - ./data/init:/docker-entrypoint-initdb.d/:ro
     grafana:
       container_name: vast-analytics-dash
       image: grafana/grafana:7.2.1
       ports:
        - "80:3000"
-      environment:
-         - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       volumes:
-         - ./data/grafana:/var/lib/grafana
+         - grafana:/var/lib/grafana

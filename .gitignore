@@ -3,5 +3,5 @@ backup
 .DS_Store
 __pycache__/
 cookies.json
-analytics/server/data/db/
-analytics/server/data/grafana/
+analytics/server/data/db
+analytics/server/data/grafana
