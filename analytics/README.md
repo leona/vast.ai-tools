@@ -55,6 +55,7 @@ docker run \
   --gpus all \
   --restart always \
   -v /var/lib/docker:/var/lib/docker \
+  -v /var/run/docker.sock:/var/run/docker.sock \
   -v /var/lib/vastai_kaalia/api_key:/var/lib/vastai_analytics/api_key \
   --network host \
   --name vast-analytics -d \

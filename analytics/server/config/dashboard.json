@@ -528,7 +528,7 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 8,
+        "w": 4,
         "x": 12,
         "y": 4
       },
@@ -582,6 +582,86 @@
       "timeShift": null,
       "title": "Credit earned",
       "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "MySQL",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 4
+      },
+      "id": 32,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.2.1",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  reliability\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "reliability"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "machine",
+          "timeColumn": "time",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Reliability",
       "type": "stat"
     },
     {
@@ -732,7 +812,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,1s),\n  (((sum(power_consumption) + $power_offset) / 1000) * $power_cost) * ((($__to - $__from) / 1000) / 60 / 60)  AS \"Energy Cost      \"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time)\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,1s)",
+          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,1s),\n  (((sum(power_consumption) + $power_offset) / 1000) * $power_cost) * ((($__to - $__from) / 1000) / 60 / 60)  AS \"Power Cost      \"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time)\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,1s)",
           "refId": "A",
           "select": [
             [
@@ -835,7 +915,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,1s),\n  ((sum(power_consumption) + $power_offset) / 1000) * $power_cost AS \"Avg. Energy cost p/h\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time)\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,1s)",
+          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,1s),\n  ((sum(power_consumption) + $power_offset) / 1000) * $power_cost AS \"Avg. Power cost p/h\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time)\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,1s)",
           "refId": "A",
           "select": [
             [
@@ -2798,5 +2878,5 @@
   "timezone": "",
   "title": "Vast",
   "uid": "SwHgmdcGk",
-  "version": 43
+  "version": 46
 }
