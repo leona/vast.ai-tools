@@ -10,7 +10,11 @@ def run():
     for key, item in enumerate(settings.args.values.split(",")):
         if len(item) > 45:
             item = item[0:44]
-            
+
+        if key not in values:
+            log("WARNING - Key:", key, "not in values:", values)
+            continue
+
         values[key] = item
 
     db.insert_event({

@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1602516276989,
+  "iteration": 1602713341113,
   "links": [],
   "panels": [
     {
@@ -69,7 +69,7 @@
           "group": [],
           "metricColumn": "component",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  component AS metric,\n  utilisation\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'cpu'\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  component AS metric,\n  utilisation\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'cpu' AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -97,6 +97,16 @@
                 "component",
                 "=",
                 "'cpu'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
               ],
               "type": "expression"
             }
@@ -158,7 +168,7 @@
           "group": [],
           "metricColumn": "component",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  component AS metric,\n  utilisation\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'ram'\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  component AS metric,\n  utilisation\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'ram' AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -186,6 +196,16 @@
                 "component",
                 "=",
                 "'ram'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
               ],
               "type": "expression"
             }
@@ -227,6 +247,7 @@
         "y": 0
       },
       "id": 9,
+      "maxDataPoints": 1,
       "options": {
         "displayMode": "gradient",
         "orientation": "horizontal",
@@ -246,7 +267,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  rentals_bid AS \"Bid\",\n  rentals_on_demand AS \"On Demand\",\n  rentals_stored AS \"Stored\"\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  rentals_bid AS \"Bid\",\n  rentals_on_demand AS \"On Demand\",\n  rentals_stored AS \"Stored\"\nFROM machine\nWHERE\n  $__unixEpochFilter(time) AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -298,6 +319,42 @@
           "where": [
             {
               "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  count(*) as \"Idle GPUs\"\nFROM instance\nWHERE\n  earning = '0'\nGROUP BY time\nORDER BY time desc\nlimit 1",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
               "params": [],
               "type": "macro"
             }
@@ -361,7 +418,7 @@
           "group": [],
           "metricColumn": "component",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  component AS metric,\n  utilisation\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'disk_space'\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  component AS metric,\n  utilisation\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'disk_space' AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -389,6 +446,16 @@
                 "component",
                 "=",
                 "'disk_space'"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
               ],
               "type": "expression"
             }
@@ -429,6 +496,7 @@
         "x": 6,
         "y": 4
       },
+      "hideTimeOverride": true,
       "id": 18,
       "maxDataPoints": 1,
       "options": {
@@ -460,7 +528,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,1s),\n  sum(power_consumption) + $power_offset AS \"power_consumption\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time)\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,1s)",
+          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,1s),\n  sum(power_consumption) + $power_offset AS \"power_consumption\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) and\n  machine_id = $machine_id\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,1s)",
           "refId": "A",
           "select": [
             [
@@ -554,7 +622,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time AS \"time\",\n  account_credit\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  account_credit\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\n  and machine_id = $machine_id\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -613,7 +681,9 @@
         "x": 16,
         "y": 4
       },
+      "hideTimeOverride": true,
       "id": 32,
+      "maxDataPoints": 1,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -621,7 +691,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -659,7 +729,7 @@
           ]
         }
       ],
-      "timeFrom": null,
+      "timeFrom": "2m",
       "timeShift": null,
       "title": "Reliability",
       "type": "stat"
@@ -698,7 +768,7 @@
       "maxDataPoints": 1,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
@@ -717,7 +787,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  account_credit AS \"Account credit\"\nFROM machine\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  account_credit AS \"Account credit\"\nFROM machine\nWHERE\n  $__unixEpochFilter(time) AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -743,11 +813,21 @@
               "name": "$__unixEpochFilter",
               "params": [],
               "type": "macro"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         }
       ],
-      "timeFrom": "1m",
+      "timeFrom": "2m",
       "timeShift": null,
       "title": "",
       "type": "stat"
@@ -812,7 +892,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,1s),\n  (((sum(power_consumption) + $power_offset) / 1000) * $power_cost) * ((($__to - $__from) / 1000) / 60 / 60)  AS \"Power Cost      \"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time)\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,1s)",
+          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,1s),\n  (((sum(power_consumption) + $power_offset) / 1000) * $power_cost) * ((($__to - $__from) / 1000) / 60 / 60)  AS \"Power Cost      \"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) and\n  machine_id = $machine_id\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,1s)",
           "refId": "A",
           "select": [
             [
@@ -915,7 +995,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,1s),\n  ((sum(power_consumption) + $power_offset) / 1000) * $power_cost AS \"Avg. Power cost p/h\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time)\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,1s)",
+          "rawSql": "SELECT\n  $__unixEpochGroupAlias(time,1s),\n  ((sum(power_consumption) + $power_offset) / 1000) * $power_cost AS \"Avg. Power cost p/h\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time)\n  and machine_id = $machine_id\nGROUP BY 1\nORDER BY $__unixEpochGroup(time,1s)",
           "refId": "A",
           "select": [
             [
@@ -993,7 +1073,7 @@
         ]
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 12,
         "x": 12,
         "y": 8
@@ -1009,7 +1089,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"Power consumption\",\n  hw_id AS \"HW ID\",\n  component AS \"Component\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  power_consumption != ''\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"Power consumption\",\n  hw_id AS \"HW ID\",\n  component AS \"Component\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  power_consumption != '' AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -1073,13 +1153,23 @@
                 "''"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "GPU Power draw",
+      "title": "",
       "transformations": [
         {
           "id": "groupBy",
@@ -1198,7 +1288,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  temperature AS \"CPU\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'cpu'\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  temperature AS \"CPU\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'cpu' AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "G",
           "select": [
             [
@@ -1234,6 +1324,16 @@
                 "'cpu'"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -1242,7 +1342,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  temperature AS \"GPU 1\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 1\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  temperature AS \"GPU 1\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 1 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -1288,6 +1388,16 @@
                 "1"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -1296,7 +1406,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  temperature AS \"GPU 2\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 2\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  temperature AS \"GPU 2\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 2 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "B",
           "select": [
             [
@@ -1342,6 +1452,16 @@
                 "2"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -1350,7 +1470,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  temperature AS \"GPU 3\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 3\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  temperature AS \"GPU 3\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 3 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "C",
           "select": [
             [
@@ -1394,6 +1514,16 @@
                 "hw_id",
                 "=",
                 "3"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
               ],
               "type": "expression"
             }
@@ -1458,7 +1588,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  temperature AS \"GPU 5\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 5\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  temperature AS \"GPU 5\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 5 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "E",
           "select": [
             [
@@ -1504,6 +1634,16 @@
                 "5"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -1512,7 +1652,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  temperature AS \"GPU 6\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 6\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  temperature AS \"GPU 6\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 6 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "F",
           "select": [
             [
@@ -1558,6 +1698,16 @@
                 "6"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -1566,7 +1716,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  temperature AS \"GPU 0\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 0\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  temperature AS \"GPU 0\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 0 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "H",
           "select": [
             [
@@ -1610,6 +1760,16 @@
                 "hw_id",
                 "=",
                 "0"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
               ],
               "type": "expression"
             }
@@ -1690,7 +1850,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 13
+        "y": 11
       },
       "hiddenSeries": false,
       "id": 12,
@@ -1724,7 +1884,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  earning AS \"GPU 1\"\nFROM instance\nWHERE\n  $__unixEpochFilter(time) AND\n  instance_id = 1\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  earning AS \"GPU 1\"\nFROM instance\nWHERE\n  $__unixEpochFilter(time) AND\n  instance_id = 1 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -1760,6 +1920,16 @@
                 "1"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -1768,7 +1938,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  earning AS \"GPU 2\"\nFROM instance\nWHERE\n  $__unixEpochFilter(time) AND\n  instance_id = 2\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  earning AS \"GPU 2\"\nFROM instance\nWHERE\n  $__unixEpochFilter(time) AND\n  instance_id = 2 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "C",
           "select": [
             [
@@ -1804,6 +1974,16 @@
                 "2"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -1812,7 +1992,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  earning AS \"GPU 3\"\nFROM instance\nWHERE\n  $__unixEpochFilter(time) AND\n  instance_id = 3\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  earning AS \"GPU 3\"\nFROM instance\nWHERE\n  $__unixEpochFilter(time) AND\n  instance_id = 3 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "B",
           "select": [
             [
@@ -1848,6 +2028,16 @@
                 "3"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -1856,7 +2046,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  earning AS \"GPU 4\"\nFROM instance\nWHERE\n  $__unixEpochFilter(time) AND\n  instance_id = 4\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  earning AS \"GPU 4\"\nFROM instance\nWHERE\n  $__unixEpochFilter(time) AND\n  instance_id = 4 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "D",
           "select": [
             [
@@ -1892,6 +2082,16 @@
                 "4"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -1900,7 +2100,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  earning AS \"GPU 5\"\nFROM instance\nWHERE\n  $__unixEpochFilter(time) AND\n  instance_id = 5\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  earning AS \"GPU 5\"\nFROM instance\nWHERE\n  $__unixEpochFilter(time) AND\n  instance_id = 5 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "E",
           "select": [
             [
@@ -1936,6 +2136,16 @@
                 "5"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -1944,7 +2154,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  earning AS \"GPU 0\"\nFROM instance\nWHERE\n  $__unixEpochFilter(time) AND\n  instance_id = 0\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  earning AS \"GPU 0\"\nFROM instance\nWHERE\n  $__unixEpochFilter(time) AND\n  instance_id = 0 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "F",
           "select": [
             [
@@ -1980,6 +2190,16 @@
                 "0"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         }
@@ -2008,7 +2228,7 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -2092,7 +2312,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"CPU\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'cpu'\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"CPU\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'cpu' AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "G",
           "select": [
             [
@@ -2128,6 +2348,16 @@
                 "'cpu'"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -2136,7 +2366,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"GPU 1\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 1\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"GPU 1\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 1 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -2182,6 +2412,16 @@
                 "1"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -2190,7 +2430,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"GPU 2\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 2\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"GPU 2\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 2 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "B",
           "select": [
             [
@@ -2236,6 +2476,16 @@
                 "2"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -2244,7 +2494,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"GPU 3\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 3\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"GPU 3\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 3 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "C",
           "select": [
             [
@@ -2290,6 +2540,16 @@
                 "3"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -2298,7 +2558,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"GPU 4\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 4\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"GPU 4\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 4 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "D",
           "select": [
             [
@@ -2344,6 +2604,16 @@
                 "4"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -2352,7 +2622,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"GPU 5\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 5\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"GPU 5\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 5 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "E",
           "select": [
             [
@@ -2398,6 +2668,16 @@
                 "5"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -2406,7 +2686,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"GPU 6\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 6\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"GPU 6\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 6 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "F",
           "select": [
             [
@@ -2452,6 +2732,16 @@
                 "6"
               ],
               "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
+              ],
+              "type": "expression"
             }
           ]
         },
@@ -2460,7 +2750,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"GPU 0\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 0\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  power_consumption AS \"GPU 0\"\nFROM hardware\nWHERE\n  $__unixEpochFilter(time) AND\n  component = 'gpu' AND\n  hw_id = 0 AND\n  machine_id = $machine_id\nORDER BY time",
           "refId": "H",
           "select": [
             [
@@ -2504,6 +2794,16 @@
                 "hw_id",
                 "=",
                 "0"
+              ],
+              "type": "expression"
+            },
+            {
+              "datatype": "int",
+              "name": "",
+              "params": [
+                "machine_id",
+                "=",
+                "$machine_id"
               ],
               "type": "expression"
             }
@@ -2581,10 +2881,10 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 5,
+        "h": 7,
         "w": 12,
         "x": 12,
-        "y": 20
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 8,
@@ -2666,7 +2966,7 @@
           "label": null,
           "logBase": 1,
           "max": "1",
-          "min": null,
+          "min": "0.9",
           "show": true
         },
         {
@@ -2704,7 +3004,56 @@
           },
           "unit": "none"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Image name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 362
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "time"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 167
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 130
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "GPU ID(s)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 135
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -2714,7 +3063,8 @@
       },
       "id": 31,
       "options": {
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": []
       },
       "pluginVersion": "7.2.1",
       "targets": [
@@ -2723,7 +3073,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  time AS \"time\",\n  name,\n  val1 AS \"Container ID\",\n  val2 AS \"Image name\",\n  val3 AS \"GPU ID(s)\"\nFROM event\nWHERE\n  $__unixEpochFilter(time)\nORDER BY time desc",
+          "rawSql": "SELECT\n  time AS \"time\",\n  name,\n  val1 AS \"Container ID\",\n  val2 AS \"Image name\",\n  val3 AS \"GPU ID(s)\"\nFROM event\nwhere machine_id = $machine_id\nORDER BY time desc",
           "refId": "A",
           "select": [
             [
@@ -2796,7 +3146,7 @@
       "type": "table"
     }
   ],
-  "refresh": false,
+  "refresh": "30s",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -2806,8 +3156,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "2",
-          "value": "2"
+          "text": "4",
+          "value": "4"
         },
         "datasource": "MySQL",
         "definition": "SELECT\n  count(*)\nFROM instance\nWHERE\n  earning = '0'\nGROUP BY time\nORDER BY time desc\nlimit 1",
@@ -2840,11 +3190,11 @@
         "options": [
           {
             "selected": true,
-            "text": "180",
-            "value": "180"
+            "text": "250",
+            "value": "250"
           }
         ],
-        "query": "180",
+        "query": "250",
         "skipUrlSync": false,
         "type": "textbox"
       },
@@ -2867,16 +3217,36 @@
         "query": "0.35",
         "skipUrlSync": false,
         "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "2681",
+          "value": "2681"
+        },
+        "hide": 0,
+        "label": "Machine ID",
+        "name": "machine_id",
+        "options": [
+          {
+            "selected": true,
+            "text": "2681",
+            "value": "2681"
+          }
+        ],
+        "query": "2681",
+        "skipUrlSync": false,
+        "type": "textbox"
       }
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Vast",
   "uid": "SwHgmdcGk",
-  "version": 46
+  "version": 72
 }

@@ -19,7 +19,6 @@ def run():
     _time = int(time.time())
 
     db.insert_machine(_time, {
-        "machine_id": machine.id,
         "account_credit": account.current['total'],
         "reliability": machine.reliability2,
         "rentals_stored": machine.current_rentals_resident,
@@ -29,7 +28,6 @@ def run():
 
     for key, instance in enumerate(machine.instances):
         db.insert_instance(_time, {
-            "machine_id": machine.id,
             "instance_id": key,
             "earning":  0 if instance.next_state == "running" else instance.min_bid,
         })

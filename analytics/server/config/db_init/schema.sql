@@ -1,7 +1,7 @@
 SET NAMES utf8 ;
 SET character_set_client = utf8mb4 ;
 
-CREATE TABLE `instance` (
+CREATE TABLE `vast`.`instance` (
  `id` int NOT NULL AUTO_INCREMENT,
  `time` int DEFAULT NULL,
  `machine_id` int DEFAULT NULL,
@@ -10,9 +10,10 @@ CREATE TABLE `instance` (
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `hardware` (
+CREATE TABLE `vast`.`hardware` (
   `id` int NOT NULL AUTO_INCREMENT,
   `time` int DEFAULT NULL,
+  `machine_id` int DEFAULT NULL,
   `component` varchar(45) DEFAULT NULL,
   `hw_id` varchar(45) DEFAULT NULL,
   `utilisation` double DEFAULT NULL,
@@ -21,7 +22,7 @@ CREATE TABLE `hardware` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `machine` (
+CREATE TABLE `vast`.`machine` (
   `id` int NOT NULL AUTO_INCREMENT,
   `time` int DEFAULT NULL,
   `machine_id` int DEFAULT NULL,
@@ -36,6 +37,7 @@ CREATE TABLE `machine` (
 CREATE TABLE `vast`.`event` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `time` INT NULL,
+  `machine_id` int DEFAULT NULL,
   `name` VARCHAR(45) NULL,
   `val1` VARCHAR(45) NULL,
   `val2` VARCHAR(45) NULL,

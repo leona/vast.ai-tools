@@ -53,7 +53,7 @@ def run():
             "power_consumption": None,
         })
     '''
-    
+
     db.insert_hardware(_time, {
         "component": "cpu",
         "hw_id": None,
@@ -68,5 +68,5 @@ def run():
             "hw_id": gpu.id,
             "utilisation": gpu.load * 100,
             "temperature": gpu.temperature,
-            "power_consumption": float(exec("gpu_power", (gpu.id))),
+            "power_consumption": float(exec("gpu_power", args=(gpu.id))),
         })
