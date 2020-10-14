@@ -69,11 +69,13 @@ docker run \
 ## Update steps
 
 ### Server
+```bash
 cd vast.ai-tools/analytics/server
 git pull origin master
 docker-compose down
 docker volume rm server_db
 docker-compose up -d
+```
 
 ### Client
 ```bash
