@@ -77,6 +77,8 @@ docker volume rm server_db
 docker-compose up -d
 ```
 
+You may also redo the dashboard.json step from the server setup to get the latest queries.
+
 ### Client
 ```bash
 docker stop vast-analytics
