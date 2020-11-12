@@ -15,6 +15,15 @@ do
   request_url="http://$SERVER_ADDR:$SERVER_PORT/ping/$WORKER?api_key=$API_KEY"
   time=`date "+%H:%M:%S-%d/%m/%Y"`
   echo "$time - Pinging $request_url"
+  driver_check=$(nvidia-smi | grep "Unable to determine the device handle")
+  
+  if [ -n "$driver_check" ]
+  then
+    echo "Driver check failed. Sleeping."
+    sleep 120s
+    continue
+  fi
+
   curl -m 2 "$request_url"
   sleep $PING_INTERVAL
 done
