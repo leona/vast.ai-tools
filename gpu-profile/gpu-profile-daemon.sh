@@ -12,7 +12,8 @@ fi
 
 # Setup X for overclocking. This is messy and might not work on your machine. Fuck nvidia.
 init 3 # Kill X server if already running
-pkill X
+pkill -f /usr/lib/xorg/Xorg
+sleep 3
 X :0 &
 sleep 5
 export DISPLAY=:0
@@ -70,6 +71,9 @@ process_container() {
 
   echo "Setting clock offset: $clock_offset"
   nvidia-settings -a "[gpu:$gpu_id]/GPUGraphicsClockOffset[$CLOCK_COUNT]=$clock_offset"
+
+  sleep 3
+  pkill -f /usr/lib/xorg/Xorg
 }
 
 
