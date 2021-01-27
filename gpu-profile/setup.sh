@@ -36,8 +36,8 @@ nvidia-xconfig -a --cool-bits=28 --separate-x-screens --allow-empty-initial-conf
 apt install -y jq
 
 # Download scripts
-wget https://raw.githubusercontent.com/alfananuq/vast.ai-tools/blob/kill-x/gpu-profile/gpu-profile-daemon.sh -O $daemon_path
-wget https://raw.githubusercontent.com/alfananuq/vast.ai-tools/blob/kill-x/gpu-profile/gpu-profile.sh -O $config_maker_path
+wget https://raw.githubusercontent.com/alfananuq/vast.ai-tools/master/gpu-profile/gpu-profile-daemon.sh -O $daemon_path
+wget https://raw.githubusercontent.com/alfananuq/vast.ai-tools/master/gpu-profile/gpu-profile.sh -O $config_maker_path
 chmod +x $daemon_path
 chmod +x $config_maker_path
 
