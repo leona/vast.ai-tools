@@ -1,36 +1,23 @@
-FROM nvidia/cuda:11.0-devel-ubuntu16.04
+FROM nvidia/cuda:11.2.1-devel-ubuntu20.04
 
 MAINTAINER Leon
+
+ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /home
 
 # Package and dependency setup
 RUN apt-get update \
     && apt-get -y install software-properties-common \
-    && add-apt-repository -y ppa:ethereum/ethereum -y \
     && apt-get update \
     && apt-get install -y git \
      cmake \
-     wget \
-     libcryptopp-dev \
-     libleveldb-dev \
-     libjsoncpp-dev \
-     libjsonrpccpp-dev \
-     libboost-all-dev \
-     libgmp-dev \
-     libreadline-dev \
-     libcurl4-gnutls-dev \
-     ocl-icd-libopencl1 \
-     opencl-headers \
-     mesa-common-dev \
-     libmicrohttpd-dev \
-     build-essential \
-     unzip
+     wget
 
 RUN \
-  wget https://github.com/NebuTech/NBMiner/releases/download/v31.1/NBMiner_31.1_Linux.tgz && \
-  tar -zxvf NBMiner_31.1_Linux.tgz && \
-  rm NBMiner_31.1_Linux.tgz && \
+  wget https://github.com/NebuTech/NBMiner/releases/download/v36.1/NBMiner_36.1_Linux.tgz && \
+  tar -zxvf NBMiner_36.1_Linux.tgz && \
+  rm NBMiner_36.1_Linux.tgz && \
   mv NBMiner_Linux nbminer
 
 RUN \
@@ -40,27 +27,13 @@ RUN \
   mv bin ethminer
 
 RUN \
-  wget https://github.com/PhoenixMiner-download/PhoenixMiner/releases/download/5.1c/PhoenixMiner_5.1c_Linux.zip && \
-  unzip PhoenixMiner_5.1c_Linux.zip && \
-  rm PhoenixMiner_5.1c_Linux.zip && \
-  mv PhoenixMiner_5.1c_Linux phoenixminer
+  wget https://github.com/PhoenixMinerDevTeam/PhoenixMiner/releases/download/5.5c/PhoenixMiner_5.5c_Linux.tar.gz && \
+  tar -zxvf PhoenixMiner_5.5c_Linux.tar.gz && \
+  rm PhoenixMiner_5.5c_Linux.tar.gz && \
+  mv PhoenixMiner_5.5c_Linux phoenixminer
 
 RUN \
-  wget https://github.com/xmrig/xmrig/releases/download/v6.3.4/xmrig-6.3.4-linux-x64.tar.gz && \
-  tar -zxvf xmrig-6.3.4-linux-x64.tar.gz && \
-  rm xmrig-6.3.4-linux-x64.tar.gz && \
-  mv xmrig-6.3.4 xmrig
-
-RUN \
-  wget https://github.com/Claymore-Dual/Claymore-Dual-Miner/releases/download/15.0/Claymore.s.Dual.Ethereum.AMD+NVIDIA.GPU.Miner.v15.0.-.LINUX.zip && \
-  unzip Claymore.s.Dual.Ethereum.AMD+NVIDIA.GPU.Miner.v15.0.-.LINUX.zip && \
-  rm Claymore.s.Dual.Ethereum.AMD+NVIDIA.GPU.Miner.v15.0.-.LINUX.zip && \
-  mv "Claymore's Dual Ethereum AMD+NVIDIA GPU Miner v15.0 - LINUX" claymore && \
-  chmod +x claymore/ethdcrminer64
-
-RUN \
-  apt install -y nano libpci-dev && \
-  chmod +x phoenixminer/PhoenixMiner
+  apt install -y nano libpci-dev 
 
 # Env setup
 ENV GPU_FORCE_64BIT_PTR=0
