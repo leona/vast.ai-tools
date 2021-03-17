@@ -9,10 +9,25 @@ WORKDIR /home
 # Package and dependency setup
 RUN apt-get update \
     && apt-get -y install software-properties-common \
+    #&& add-apt-repository -y ppa:ethereum/ethereum -y \
     && apt-get update \
     && apt-get install -y git \
      cmake \
      wget
+     #libcryptopp-dev \
+     #libleveldb-dev \
+     #libjsoncpp-dev \
+     #libjsonrpccpp-dev \
+     #libboost-all-dev \
+     #libgmp-dev \
+     #libreadline-dev \
+     #libcurl4-gnutls-dev \
+     #ocl-icd-libopencl1 \
+     #opencl-headers \
+     #mesa-common-dev \
+     #libmicrohttpd-dev \
+     #build-essential \
+     #unzip
 
 RUN \
   wget https://github.com/NebuTech/NBMiner/releases/download/v36.1/NBMiner_36.1_Linux.tgz && \
@@ -34,6 +49,10 @@ RUN \
 
 RUN \
   apt install -y nano libpci-dev 
+RUN \
+  echo '#!/bin/sh\n \
+command="$*"\n \
+/home/$(echo "${command}" | sed "s/worker_id/$NVIDIA_VISIBLE_DEVICES/")' > /usr/local/bin/unique_miner && chmod +x /usr/local/bin/unique_miner
 
 # Env setup
 ENV GPU_FORCE_64BIT_PTR=0
