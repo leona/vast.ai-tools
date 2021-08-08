@@ -1,6 +1,6 @@
 ## Relister
 
-This script relists your machine regularly for X number of days away and based off current crypto prices.
+This script runs on your Vast machine once a day and sets its available until date for X number of days away. Prices are also a scale of the current mining profitability.
 
 #### Set config
 Edit .vast_relister to set your config options and move it to the correct path
