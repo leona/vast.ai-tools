@@ -19,11 +19,23 @@ fi
 # Get most profitaable reward
 base_hashrate=90.5
 btc_reward=$(curl -s https://whattomine.com/coins.json | jq '[.coins[]]|max_by(.profitability24).btc_revenue24')
+
+if [ "$?" != "0" ] || [ "$?" == "null" ]; then
+  echo "Failed to get most profitable reward"
+  exit 1
+fi
+
 btc_reward="${btc_reward%\"}"
 btc_reward="${btc_reward#\"}"
 
 # Get scaled USD price based off set hashrate
 usd_btc="$(curl -s https://blockchain.info/ticker | jq '.USD.last')"
+
+if [ "$?" != "0" ] || [ "$?" == "null" ]; then
+  echo "Failed to get BTC price"
+  exit 1
+fi
+
 mining_profit=$(echo "scale=10; (((${usd_btc} * ${btc_reward}) / $base_hashrate) * $HASHRATE) / 24" | bc)
 scaled_price=$(echo "$mining_profit * $MINING_SCALE" | bc)
 
