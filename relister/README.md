@@ -1,6 +1,6 @@
 ## Relister
 
-This script runs on your Vast machine once a day and sets its available until date for X number of days away. Prices are also a scale of the current mining profitability.
+This script runs on your Vast machine once a day and updates the price and instance expiry date. Price is based off a scale of the current mining profit for your GPU, expiry date is the number of days contracts have before you can set a new price.
 
 #### Set config
 Edit .vast_relister to set your config options and move it to the correct path
