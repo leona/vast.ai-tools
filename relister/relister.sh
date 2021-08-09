@@ -16,7 +16,7 @@ if [ "$AUTO_UPDATE_CLI" == "yes" ]; then
   chmod +x /usr/local/bin/vast
 fi
 
-# Get most profitaable reward
+# Get most profitable reward
 base_hashrate=90.5
 btc_reward=$(curl -s https://whattomine.com/coins.json | jq '[.coins[]]|max_by(.profitability24).btc_revenue24')
 

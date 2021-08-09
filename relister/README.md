@@ -10,7 +10,9 @@ mv .vast_relister /root/.vast_relister
 
 #### Vast cli tool
 Add [my fork](https://github.com/leona/vast-python) of the vast cli tool to your path. This adds support for `--end_date`.
+
 _OR_
+
 Set the config option `AUTO_UPDATE_CLI=yes` in `.vast_relister`
 
 #### Test
