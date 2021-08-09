@@ -13,7 +13,7 @@ if [ "$?" != "0" ]; then
 fi
 
 # Get most profitable reward
-base_hashrate=90.5
+base_hashrate=75.5
 btc_reward=$(curl -s https://whattomine.com/coins.json | jq '[.coins[]]|max_by(.profitability24).btc_revenue24')
 
 if [ "$?" != "0" ] || [ "$btc_reward" == "null" ]; then
@@ -33,9 +33,9 @@ if [ "$?" != "0" ] || [ "$usd_btc" == "null" ]; then
   exit 1
 fi
 
-mining_profit=$(echo "scale=10; (((${usd_btc} * ${btc_reward}) / $base_hashrate) * $HASHRATE) / 24" | bc)
-scaled_price=$(printf "%3.2f\n" $(echo "$mining_profit * $MINING_SCALE" | bc))
-scaled_defjob_price=$(printf "%3.2f\n" $(echo "$mining_profit * $MINING_DEFJOB_SCALE" | bc))
+mining_profit=$(python3 -c "print((((${usd_btc} * ${btc_reward}) / $base_hashrate) * $HASHRATE) / 24)")
+scaled_price=$(python3 -c "print(round($mining_profit * $MINING_SCALE, 3))")
+scaled_defjob_price=$(python3 -c "print($mining_profit * $MINING_DEFJOB_SCALE)")
 
 # Get list till date
 timestamp=$(date +%s)
@@ -49,6 +49,7 @@ curl -s \
   -H "Content-Type: application/json" \
   -d "$list_data" \
   ${API_ENDPOINT}/machines/create_asks/?api_key=$API_KEY
+
 
 machine_info=$(curl -s https://vast.ai/api/v0/machines/?api_key=$API_KEY | jq ".machines[] | select(.id == $MACHINE_ID)")
 
@@ -74,6 +75,8 @@ curl -s \
   -H "Content-Type: application/json" \
   -d "$defjob_data" \
   ${API_ENDPOINT}/machines/create_bids/?api_key=$API_KEY
+
+echo "$defjob_data"
 
 if [ "$?" != "0" ]; then
   echo "Failed to set defjob price"
