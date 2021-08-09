@@ -13,7 +13,7 @@ Add [my fork](https://github.com/leona/vast-python) of the vast cli tool to your
 
 _OR_
 
-Set the config option `AUTO_UPDATE_CLI=yes` in `.vast_relister`
+Set the config option `AUTO_UPDATE_CLI=yes` in `.vast_relister`. This is less secure but can be toggled off after the first run.
 
 ### Test
 ```bash
