@@ -26,7 +26,7 @@ Aggregated stats on all active machines
 
 [Link to read more](./stats)
 
-## Benchmarking
+## Benchmarking (WIP)
 
 Useful commands for benchmarking
 
