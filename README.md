@@ -32,36 +32,19 @@ Useful commands for benchmarking
 
 [Link to read more](./benchmark)
 
-## Dockerfile.miner
+## aio-miner
 
-This is the dockerfile for the image `nxie/aio-miner`
-I based it off the ethminer Dockerfile, updating CUDA to 11 and adding the different miners.
+This contains the Dockerfile for the image `nxie/aio-miner`
 
-Here are some example arguments you can pass through vast
-```bash
-nbminer/nbminer -d 0 -a kawpow -o stratum+tcp://kawpow.usa.nicehash.com:3385 -u youraddress.9:d=3072
-```
+## Relister
 
-```bash
-claymore/ethdcrminer64 <see_miner_docs>
-```
+Automatically lists your machine every day for a set number of days away. This helps for expiring contracts. Also sets your price based on a scale of mining profitibility.
 
-```bash
-xmrig/xmrig <see_miner_docs>
-```
-
-```bash
-phoenixminer/PhoenixMiner <see_miner_docs>
-```
-```bash
-ethminer/ethminer <see_miner_docs>
-```
+[Link to read more](./relister)
 
 ## Ideas
 
 Some things I'd like to make when I have time
 
-- Idle time logger. View least active days etc.
-- Wallet based authentication on gpu-profile
 - Simple mining profitability switcher
 - Bid watcher. Watch for GPUs that reach a certain price per hour and rent them automatically

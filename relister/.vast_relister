@@ -1,8 +1,9 @@
 NUM_DAYS=21 # Number of days till an instance expires. Sets the available until date.
 MINING_SCALE=1.6 # Scale of current mining profitability in USD to rent.
+MINING_DEFJOB_SCALE=1.4 # Interruptible instance scale
 HASHRATE=124 # Hashrate of a single GPU from this machine
 PRICE_DISK=0.5
 PRICE_INETD=0.02
 PRICE_INETU=0.02
 MACHINE_ID=1234
-AUTO_UPDATE_CLI=no
+MIN_CHUNK=1

@@ -8,13 +8,6 @@ Edit `.vast_relister` to set your config options and move it to the correct path
 mv .vast_relister /root/.vast_relister
 ```
 
-### Vast cli tool
-Add [my fork](https://github.com/leona/vast-python) of the vast cli tool to your path. This adds support for `--end_date`.
-
-_OR_
-
-Set the config option `AUTO_UPDATE_CLI=yes` in `.vast_relister`. This is less secure but can be toggled off after the first run.
-
 ### Test
 ```bash
 bash relister.sh
@@ -23,5 +16,5 @@ bash relister.sh
 ### Setup cron
 Runs at 1am everyday
 ```bash
-echo "0 1 * * * bash /root/relister/relister.sh" | tee -a /var/spool/cron/crontabs/root
+echo "0 1 * * * bash /root/relister/relister.sh >> /var/log/relister.log 2>&1" | tee -a /var/spool/cron/crontabs/root
 ```
