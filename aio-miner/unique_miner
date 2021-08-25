@@ -1,0 +1,7 @@
+#!/bin/sh
+
+command="$*"
+gpu_info=$(nvidia-smi -i 0 --query-gpu=gpu_bus_id,uuid --format=csv,noheader)
+bus_id=$(echo $gpu_info | awk -F', ' '{ print $1 }')
+uuid=$(echo $gpu_info | awk -F', ' '{ print $2 }' | awk -F'-' '{ print $2 }')
+/home/$(echo "$command" | sed "s/gpu_index/$NVIDIA_VISIBLE_DEVICES/" | sed "s/gpu_uuid/$uuid/" | sed "s/gpu_bus_id/${bus_id}/")

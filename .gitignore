@@ -1,0 +1,9 @@
+backup
+.env
+.DS_Store
+__pycache__/
+cookies.json
+analytics/server/data/db
+analytics/server/data/grafana
+random
+benchmark/src/output.json
